@@ -2,9 +2,12 @@ package org.luther.restservice.messenger.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 
 @XmlRootElement
@@ -14,7 +17,17 @@ public class Message {
 	private String messageText;
 	private Date createdTime;
 	private String author;
+	private Map<Long, Comment> comments = new HashMap<>();
 	
+	@XmlTransient
+	public Map<Long, Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Map<Long, Comment> comments) {
+		this.comments = comments;
+	}
+
 	private List<Link> list = new ArrayList<Link>();
 	
 	public Message()
