@@ -27,10 +27,12 @@ public class CommentService {
 	
 	public Comment addComment(long messageId , Comment comment)
 	{
-		Map<Long ,Comment> comments = messages.get(messageId).getComments();
+		Map<Long ,Comment> mycomments = messages.get(messageId).getComments();
+		System.out.println(" size is  " + mycomments.size() + " mesage is " + messageId);
 		
-		    comment.setCommentId(comments.size()+1);
-	        comments.put(messageId , comment);
+		    comment.setCommentId(mycomments.size()+1);
+		    mycomments.put(comment.getCommentId() , comment);
+	        messages.get(messageId).setComments(mycomments);
 	        return comment;
 		
 	}

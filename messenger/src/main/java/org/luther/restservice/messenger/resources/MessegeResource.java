@@ -14,8 +14,11 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 
+import org.luther.restservice.messenger.DAO.MessageDAO;
+import org.luther.restservice.messenger.database.DaoFactory;
 import org.luther.restservice.messenger.model.Message;
 import org.luther.restservice.messenger.service.MessegeService;
+import org.luther.restservice.messenger.service.RdbMessageService;
 
 @Path("/messeges")
 public class MessegeResource {
@@ -24,6 +27,7 @@ public class MessegeResource {
 	
 
 	MessegeService service = new MessegeService();
+	RdbMessageService rService = new RdbMessageService();
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -61,7 +65,11 @@ public class MessegeResource {
 	public Message postAMessage(Message message)
 	{
 		System.out.println("Message body is" + message);
-		return service.setMessage(message);
+		//return service.setMessage(message);
+		DaoFactory daofactory =  DaoFactory.getDAOFactory(DaoFactory.oracle);
+		MessageDAO mesDao = daofactory.getMessagesDAO();
+		
+		return mesDao.addMessage(message);
 	}
 	
 	
